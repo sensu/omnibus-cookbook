@@ -48,7 +48,7 @@ if windows?
       ECHO ========================================
       ECHO(
 
-      set
+      set | grep -v GPG_PASSPHRASE
 
       REM ###############################################################
       REM # Query tool versions
@@ -133,7 +133,7 @@ if windows?
       Write-Host " = Environment"
       Write-Host " ========================================"
 
-      Get-ChildItem env:
+      Get-ChildItem env: | grep -v GPG_PASSPHRASE
 
       ###############################################################
       # Query tool versions
@@ -201,7 +201,7 @@ else
       echo "========================================"
       echo ""
 
-      env -0 | sort -z | tr '\\0' '\\n'
+      env -0 | sort -z | tr '\\0' '\\n' | grep -v GPG_PASSPHRASE
 
       ###################################################################
       # Query tool versions
