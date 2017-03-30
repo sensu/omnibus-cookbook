@@ -59,6 +59,9 @@ class Chef
     attribute :live_stream,
               kind_of: [TrueClass, FalseClass],
               default: false
+    attribute :timeout,
+              kind_of: Integer,
+              default: 3600
   end
 
   class Provider::OmnibusBuild < Provider::LWRPBase
@@ -145,6 +148,7 @@ class Chef
       execute.live_stream(new_resource.live_stream)
       execute.user(new_resource.build_user)
       execute.run_action(:run)
+      execute.timeout(new_resource.timeout)
     end
 
     def environment
@@ -177,6 +181,7 @@ class Chef
       execute.cwd(new_resource.project_dir)
       execute.environment(new_resource.environment)
       execute.live_stream(new_resource.live_stream)
+      execute.timeout(new_resource.timeout)
       execute.run_action(:run)
     end
   end
