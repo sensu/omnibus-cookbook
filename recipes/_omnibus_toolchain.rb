@@ -19,6 +19,10 @@
 
 arch = (windows_arch_i386? || i386?) ? 'i386' : node['kernel']['machine']
 
+# node['kernel']['machine'] returns amd64 on freebsd but the toolchain
+# filename uses x86_64
+arch = "x86_64" if freebsd? && arch == "amd64"
+
 chef_ingredient node['omnibus']['toolchain_name'] do
   version node['omnibus']['toolchain_version']
   channel node['omnibus']['toolchain_channel'].to_sym
